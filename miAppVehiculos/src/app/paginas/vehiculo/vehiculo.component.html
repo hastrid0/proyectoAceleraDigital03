@@ -29,7 +29,7 @@
       <tbody>
         <tr *ngFor = "let vehiculo of listaVehiculo">
           <td style="width: 10%;">
-            <img class="img-thumbnail" [src]="vehiculo.foto" *ngIf="mostrarImagen"
+            <img class="img-thumbnail" [src]="vehiculo.foto" *ngIf="mostrarImagen">
           </td>
           <th scope="row">{{vehiculo.codigo}}</th>
           <td>{{vehiculo.marca}}</td>
