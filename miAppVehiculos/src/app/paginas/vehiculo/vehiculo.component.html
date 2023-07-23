@@ -4,10 +4,10 @@
       </div>
     <div class="card-body">
       <label class="form-label;">Filtrar por:</label>
-      <input type="text" class="form-label" [(ngModel)]="filtrarPor">
+      <input type="text" class="form-control" [(ngModel)]="filtrarPor">
     </div>
   </div>
-  <button type="button" class="btn btn-primary">Primary</button>
+  <button type="button" class="btn btn-primary">Nuevo</button>
 <table class="table table-dark">
     
       <thead>
@@ -17,6 +17,7 @@
           </th>
         </tr>
         <tr>
+          <th scope="col">Imagen</th>
           <th scope="col">Codigo</th>
           <th scope="col">Marca</th>
           <th scope="col">Modelo</th>
@@ -27,7 +28,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor = "let vehiculo of listaVehiculo">
+        <tr *ngFor = "let vehiculo of getListaVehiculos()">
           <td style="width: 10%;">
             <img class="img-thumbnail" [src]="vehiculo.foto" *ngIf="mostrarImagen">
           </td>
@@ -35,9 +36,15 @@
           <td>{{vehiculo.marca}}</td>
           <td>{{vehiculo.modelo}}</td>
           <td>{{vehiculo.anio}}</td>
-          <td>{{vehiculo.calificacion}}</td>
-          <td>{{vehiculo.marca}}</td>
-          <td></td>
+          <td>
+            <app-calificacion [calificacion]="vehiculo.calificacion" (select)="mostrarAlerta($event)"></app-calificacion>
+          </td>
+          <td>
+            <div class="btn-group" role="group" aria-label="Basec mixed styles example">
+              <a class="btn btn-primary" [routerLink]="[vehiculo.codigo]">Ver</a>
+              <button class="btn btn-danger" (click)="eliminarVehiculo(vehiculo)">Eliminar</button>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>

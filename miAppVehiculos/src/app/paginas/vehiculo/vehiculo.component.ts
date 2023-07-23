@@ -15,4 +15,17 @@ export class VehiculoComponent implements OnInit{
   ngOnInit(){
     this.listaVehiculo = this.vehiculoService.getVehiculos();
   }
+  mostrarAlerta(calificacion:any){
+    alert("la calificacion es:"+calificacion)
+  }
+  eliminarVehiculo(codigo:string){
+    this.vehiculoService.deleteVehiculo(codigo);
+  }
+  
+  getListaVehiculos(){
+    this.listaVehiculo = this.vehiculoService.getVehiculoFiltro(this.filtrarPor);
+    return this.listaVehiculo;
+  }
+
+ 
 }
