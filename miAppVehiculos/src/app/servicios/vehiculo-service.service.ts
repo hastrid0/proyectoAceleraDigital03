@@ -1,17 +1,32 @@
 import { Injectable } from '@angular/core';
-
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Vehiculo } from '../interfaces/Vehiculo';
 @Injectable({
   providedIn: 'root'
 })
 export class VehiculoServiceService {
 
-  constructor() { }
+  constructor(private http:HttpClient) { }
+
+  baseUrl= "https://www.epico.gob.ec/vehiculo/public/api/";
 
   getVehiculos(){
-    return this.listaVehiculos;
+    //return this.listaVehiculos;
+    return this.http.get<any>(this.baseUrl+"vehiculos/");
   }
-  agregarVehiculo(vehiculo:any){
-    this.listaVehiculos.push(vehiculo);
+  agregarVehiculo(vehiculo:Vehiculo){
+    //this.listaVehiculos.push(vehiculo);
+    
+    let body = new HttpParams();
+    body = vehiculo.codigo ? body.set('codigo', vehiculo.codigo) :body;
+    body = vehiculo.marca ? body.set('marca', vehiculo.marca) :body;
+    body = vehiculo.modelo ? body.set('modelo', vehiculo.modelo) :body;
+    body = vehiculo.anio ? body.set('anio', vehiculo.anio) :body;
+    body = vehiculo.calificacion ? body.set('calificacion', vehiculo.calificacion) : body;
+    body = vehiculo.foto ? body.set('foto',vehiculo.foto) : body
+
+    return this.http.post<any>(this.baseUrl+'vehiculo/',body).pipe();
+
   }
 
   eliminarVehiculo(codigo:string){
