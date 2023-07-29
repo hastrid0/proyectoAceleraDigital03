@@ -6,13 +6,13 @@
       <div class="row">
         <div class="mb-3">
           <label class="form-label;">Filtrar por:</label>
-          <input type="text" class="form-control" [(ngModel)]="filtrarPor">
+          <input type="text" class="form-control" [(ngModel)]="filtrarPor" (input)="consultarVehiculos()">
         </div>
       </div>
       <br>
       <div class="row">
         <div class="col-6">
-          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Nuevo</button>
+          <button class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#exampleModal"(click)="inicializarFormulario()">Nuevo</button>        
         </div>
       </div>
       
@@ -39,7 +39,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor = "let vehiculo of getListaVehiculos()">
+          <tr *ngFor = "let vehiculo of listaVehiculo">
             <td style="width: 10%;">
               <img class="img-thumbnail" [src]="vehiculo.foto" *ngIf="mostrarImagen">
             </td>
@@ -59,53 +59,51 @@
           </tr>
       </tbody>
     </table>
-
-
-<div class="modal fade" #exampleModal id="exampleModal" tabinex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-header">
-      <h5 class="modal-title" id="exampleMpdalLabel">Modal title</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    </div>
-    <div class="modal-body">
-      <form [formGroup]="formularioVehiculo"> 
-        <div class="mb-3">
-          <label for="formControlCodigo" class="form-label">Codigo</label>
-          <input type="text" class="form-control" id="formControlCodigo" formControlName="codigo">
+    <div class="modal fade" #exampleModal id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog text-dark bg-transparent" >
+      <div class="modal-content">
+        <div class="modal-header" >
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-
-        <div class="mb-3">
-          <label for="formControlCodigo" class="form-label">Marca</label>
-          <input type="text" class="form-control" id="formControlCodigo" formControlName="marca">
+        <div class="modal-body">
+          <form [formGroup]="formularioVehiculo"> 
+            <div class="mb-3">
+              <label for="formControlCodigo" class="form-label">Codigo</label>
+              <input type="text" class="form-control" id="formControlCodigo" formControlName="codigo">
+            </div>
+            <div class="mb-3">
+              <label for="formControlCodigo" class="form-label">Marca</label>
+              <input type="text" class="form-control" id="formControlCodigo" formControlName="marca">
+            </div>
+    
+            <div class="mb-3">
+              <label for="formControlModelo" class="form-label">Modelo</label>
+              <input type="text" class="form-control" id="formControlModelo" formControlName="modelo">
+            </div>
+    
+            <div class="mb-3">
+              <label for="formControlAnio" class="form-label">Anio</label>
+              <input type="text" class="form-control" id="formControlAnio" formControlName="anio">
+            </div>
+    
+            <div class="mb-3">
+              <label for="formControlCalificacion" class="form-label">Calificacion</label>
+              <input type="text" class="form-control" id="formControlCalificacion" formControlName="calificacion">
+            </div>
+    
+            <div class="mb-3">
+              <label for="formControlImagen" class="form-label">Imagen URL:</label>
+              <input type="url" class="form-control" id="formControlImagen" formControlName="imagen">
+            </div>
+    
+          </form>
         </div>
-
-        <div class="mb-3">
-          <label for="formControlModelo" class="form-label">Modelo</label>
-          <input type="text" class="form-control" id="formControlModelo" formControlName="modelo">
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="guardarVehiculo()">Save changes</button>
         </div>
-
-        <div class="mb-3">
-          <label for="formControlAnio" class="form-label">Anio</label>
-          <input type="text" class="form-control" id="formControlAnio" formControlName="anio">
-        </div>
-
-        <div class="mb-3">
-          <label for="formControlCalificacion" class="form-label">Calificacion</label>
-          <input type="text" class="form-control" id="formControlCalificacion" formControlName="calificacion">
-        </div>
-
-        <div class="mb-3">
-          <label for="formControlImagen" class="form-label">Imagen URL:</label>
-          <input type="url" class="form-control" id="formControlImagen" formControlName="imagen">
-        </div>
-
-      </form>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      <button type="button" class="btn btn-primary" (click)="guardarVehiculo()">Save changes</button>
+      </div>
     </div>
   </div>
-</div>
-
-</div>
+  

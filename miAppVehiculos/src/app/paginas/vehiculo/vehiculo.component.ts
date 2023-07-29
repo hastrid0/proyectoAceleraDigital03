@@ -37,7 +37,16 @@ export class VehiculoComponent implements OnInit{
   eliminarVehiculo(codigo:string){
     this.vehiculoService.deleteVehiculo(codigo);
   }
-  
+  inicializarFormulario(){
+    this.formularioVehiculo = this.formBuilder.group({
+      "codigo":[null],
+      "marca":[null],
+      "modelo":[null],
+      "anio":[null],
+      "calificacion":[null],
+      "imagen":[null]
+    });
+  }
   getListaVehiculos(){
     //this.listaVehiculo = this.vehiculoService.getVehiculoFiltro(this.filtrarPor);
     return this.listaVehiculo;
@@ -65,7 +74,7 @@ export class VehiculoComponent implements OnInit{
   }
 
   consultarVehiculos(){
-    this.vehiculoService.getVehiculos().subscribe((respuesta)=>{
+    this.vehiculoService.getVehiculos(this.filtrarPor).subscribe((respuesta)=>{
       if(respuesta.codigo == 1){
         this.listaVehiculo = respuesta.data;
       }

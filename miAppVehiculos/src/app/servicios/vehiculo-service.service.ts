@@ -10,9 +10,11 @@ export class VehiculoServiceService {
 
   baseUrl= "https://www.epico.gob.ec/vehiculo/public/api/";
 
-  getVehiculos(){
+  getVehiculos(filtro?:string){
+    let body = new HttpParams();
+    body = filtro ? body.set('filtro', filtro) : body;
     //return this.listaVehiculos;
-    return this.http.get<any>(this.baseUrl+"vehiculos/");
+    return this.http.get<any>(this.baseUrl+"vehiculos/", {params:body});
   }
   agregarVehiculo(vehiculo:Vehiculo){
     //this.listaVehiculos.push(vehiculo);
@@ -64,4 +66,5 @@ export class VehiculoServiceService {
     {"codigo":"002","marca":"MAZDA","modelo":"BT-50","anio":"2022","foto":"https://th.bing.com/th/id/OIP.UZEvElayIcpR7KgJ86RYwgHaEi?pid=ImgDet&rs=1","calificacion":"3.5"}
   ];
 
+  
 }
