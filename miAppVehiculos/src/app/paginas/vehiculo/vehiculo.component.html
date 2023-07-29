@@ -23,8 +23,21 @@
       
         <thead>
           <tr>
-            <th colspan="7">
+            <th colspan="6">
               <button class="btn btn-success" (click)="mostrarImagen = !mostrarImagen">Mostrar Imagen</button>
+            </th>
+            <th>
+              <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="basic-addon1">Filas:</span>
+                <select class="form-select form-select-sm" [(ngModel)]="rows" (change)="cambioRows()">
+                  <option value="5">5</option>
+                  <option value="10">10</option>
+                  <option value="25">25</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                  <option value="500">500</option>
+                </select>
+              </div>
             </th>
           </tr>
           <tr>
@@ -58,6 +71,13 @@
             </td>
           </tr>
       </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="7">
+            <app-paginacion [rows]="rows" [pages]="pages"(selectPage)="seleccionarPagina($event)"></app-paginacion>
+          </td>
+        </tr>
+      </tfoot>
     </table>
     <div class="modal fade" #exampleModal id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog text-dark bg-transparent" >

@@ -9,12 +9,14 @@ import { CalificacionComponent } from './componentes/calificacion/calificacion.c
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { PaginacionComponent } from './componentes/paginacion/paginacion.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     VehiculoComponent,
-    CalificacionComponent
+    CalificacionComponent,
+    PaginacionComponent
   ],
   imports: [
     BrowserModule,

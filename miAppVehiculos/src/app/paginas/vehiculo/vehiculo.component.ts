@@ -17,6 +17,10 @@ export class VehiculoComponent implements OnInit{
   listaVehiculo:any[] = [];
   mostrarImagen:boolean = false;
 
+  rows:number = 5;
+  pages:number;
+  page:number = 1;
+
   formularioVehiculo:FormGroup;
 
   ngOnInit(){
@@ -74,11 +78,23 @@ export class VehiculoComponent implements OnInit{
   }
 
   consultarVehiculos(){
-    this.vehiculoService.getVehiculos(this.filtrarPor).subscribe((respuesta)=>{
+    this.vehiculoService.getVehiculos(this.filtrarPor, this.rows, this.pages).subscribe((respuesta)=>{
       if(respuesta.codigo == 1){
         this.listaVehiculo = respuesta.data;
+        this.rows = respuesta.rows;
+        this.pages = this.pages;
       }
     });
+  }
+
+  seleccionarPagina(page:number){
+    this.page = page;
+    this.consultarVehiculos();
+  }
+
+  cambioRows(){
+    this.page = 1;
+    this.consultarVehiculos();
   }
  
 }
