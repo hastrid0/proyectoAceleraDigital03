@@ -61,7 +61,9 @@ export class VehiculoServiceService {
     let index = this.listaVehiculos.findIndex((item)=>item.codigo == codigo)
     this.listaVehiculos.splice(index,1);
   }
-
+  getVehiculo(codigo:string){
+    return this.http.get<any>(this.baseUrl+"vehiculo/"+codigo);
+  }
   private listaVehiculos:any[] = [
     {"codigo":"001","marca":"CHEVROLET","modelo":"SAIL 1.5","anio":"2023","foto":"https://upload.wikimedia.org/wikipedia/commons/2/2f/2019_Chevrolet_Camaro_base%2C_front_11.9.19.jpg","calificacion":"2"},
     {"codigo":"002","marca":"MAZDA","modelo":"BT-50","anio":"2022","foto":"https://th.bing.com/th/id/OIP.UZEvElayIcpR7KgJ86RYwgHaEi?pid=ImgDet&rs=1","calificacion":"3.5"}

@@ -16,7 +16,8 @@ import { PaginacionComponent } from './componentes/paginacion/paginacion.compone
     AppComponent,
     VehiculoComponent,
     CalificacionComponent,
-    PaginacionComponent
+    PaginacionComponent,
+    
   ],
   imports: [
     BrowserModule,
