@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Vehiculo } from 'src/app/interfaces/Vehiculo';
 import { VehiculoServiceService } from 'src/app/servicios/vehiculo-service.service';
 
@@ -17,6 +17,7 @@ export class VehiculoComponent implements OnInit{
   listaVehiculo:any[] = [];
   mostrarImagen:boolean = false;
 
+  wasValidated = false;
   rows:number = 5;
   pages:number;
   page:number = 1;
@@ -27,21 +28,27 @@ export class VehiculoComponent implements OnInit{
     //this.listaVehiculo = this.vehiculoService.getVehiculos();
     this.consultarVehiculos();
     this.formularioVehiculo = this.formBuilder.group({
-      "codigo":[null],
-      "marca":[null],
+      "marca": [null],
       "modelo":[null],
-      "anio":[null],
-      "calificacion":[null],
-      "imagen":[null]
+      "codigo": [null] ,
+      "anio": [null],
+      "calificacion": [null],
+      "foto": [null]
     });
   }
   mostrarAlerta(calificacion:any){
     alert("la calificacion es:"+calificacion)
   }
-  eliminarVehiculo(codigo:string){
-    this.vehiculoService.deleteVehiculo(codigo);
+  eliminarVehiculo(vehiculo:any){
+    this.vehiculoService.eliminarVehiculo(vehiculo.codigo).subscribe((respuesta)=>{
+      if(respuesta.codigo == 1){
+        alert(respuesta.mensaje);
+        this.consultarVehiculos();
+      }
+    })
   }
   inicializarFormulario(){
+    
     this.formularioVehiculo = this.formBuilder.group({
       "codigo":[null],
       "marca":[null],
@@ -50,13 +57,14 @@ export class VehiculoComponent implements OnInit{
       "calificacion":[null],
       "imagen":[null]
     });
+    
   }
   getListaVehiculos(){
-    //this.listaVehiculo = this.vehiculoService.getVehiculoFiltro(this.filtrarPor);
     return this.listaVehiculo;
   }
 
   guardarVehiculo(){
+    
     let vehiculo:Vehiculo = {...this.formularioVehiculo.value};
     
     this.vehiculoService.agregarVehiculo(vehiculo).subscribe((respuesta)=>{
@@ -78,11 +86,11 @@ export class VehiculoComponent implements OnInit{
   }
 
   consultarVehiculos(){
-    this.vehiculoService.getVehiculos(this.filtrarPor, this.rows, this.pages).subscribe((respuesta)=>{
+    this.vehiculoService.getVehiculos(this.filtrarPor, this.rows, this.page).subscribe((respuesta)=>{
       if(respuesta.codigo == 1){
         this.listaVehiculo = respuesta.data;
         this.rows = respuesta.rows;
-        this.pages = this.pages;
+        this.pages = respuesta.pages;
       }
     });
   }

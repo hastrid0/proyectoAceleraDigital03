@@ -17,33 +17,31 @@ export class VehiculoServiceService {
     body = page ? body.set('page', page) : body;
     return this.http.get<any>(this.baseUrl+"vehiculos/", {params:body});
   }
+  eliminarVehiculo(id:string){
+    return this.http.delete<any>(this.baseUrl+'vehiculo/'+id);
+  }
+  
   agregarVehiculo(vehiculo:Vehiculo){
-    //this.listaVehiculos.push(vehiculo);
-    
+
+    let body = this.getParamsVehiculo(vehiculo);
+    return this.http.post<any>(this.baseUrl+'vehiculo/',body);
+
+  }
+
+  actualizarVehiculo(vehiculo:Vehiculo,codigo:string){
+    let body = this.getParamsVehiculo(vehiculo);
+    return this.http.put<any>(this.baseUrl+'vehiculo/' + codigo, body);
+  }
+
+  getParamsVehiculo(vehiculo:Vehiculo){
     let body = new HttpParams();
-    body = vehiculo.codigo ? body.set('codigo', vehiculo.codigo) :body;
-    body = vehiculo.marca ? body.set('marca', vehiculo.marca) :body;
-    body = vehiculo.modelo ? body.set('modelo', vehiculo.modelo) :body;
-    body = vehiculo.anio ? body.set('anio', vehiculo.anio) :body;
-    body = vehiculo.calificacion ? body.set('calificacion', vehiculo.calificacion) : body;
-    body = vehiculo.foto ? body.set('foto',vehiculo.foto) : body
-
-    return this.http.post<any>(this.baseUrl+'vehiculo/',body).pipe();
-
-  }
-
-  eliminarVehiculo(codigo:string){
-    let index = this.listaVehiculos.findIndex((item)=>item.codigo == codigo)
-    this.listaVehiculos.splice(index,1);
-  }
-
-  actualizarVehiculo(datos:any, codigo:string){
-    let vehiculo = this.listaVehiculos.find((item)=>item.codigo == codigo);
-    vehiculo.marca = datos.marca ? datos.marca : vehiculo.marca;
-    vehiculo.codigo = datos.codigo ? datos.codigo : vehiculo.codigo;
-    vehiculo.modelo = datos.modelo ? datos.modelo : vehiculo.modelo;
-    vehiculo.anio = datos.anio ? datos.anio : vehiculo.anio;
-    vehiculo.calificacion = datos.calificacion ? datos.calificacion : vehiculo.calificacion;
+    body = vehiculo.codigo ? body.set('codigo',vehiculo.codigo) : body;
+    body = vehiculo.marca ? body.set('marca',vehiculo.marca) : body;
+    body = vehiculo.modelo ? body.set('modelo',vehiculo.modelo) : body;
+    body = vehiculo.anio ? body.set('anio',vehiculo.anio) : body;
+    body = vehiculo.calificacion ? body.set('calificacion',vehiculo.calificacion) : body;
+    body = vehiculo.foto ? body.set('foto',vehiculo.foto) : body;
+    return body 
   }
 
   getVehiculoFiltro(filtro:string){
@@ -57,10 +55,6 @@ export class VehiculoServiceService {
       
     }
 
-  deleteVehiculo(codigo:string){
-    let index = this.listaVehiculos.findIndex((item)=>item.codigo == codigo)
-    this.listaVehiculos.splice(index,1);
-  }
   getVehiculo(codigo:string){
     return this.http.get<any>(this.baseUrl+"vehiculo/"+codigo);
   }
