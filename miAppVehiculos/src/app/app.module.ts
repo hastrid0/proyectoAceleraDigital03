@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { PaginacionComponent } from './componentes/paginacion/paginacion.component';
 import { VehiculoDetalleComponent } from './paginas/vehiculo-detalle/vehiculo-detalle.component';
 import { HomeComponent } from './paginas/home/home.component';
+import { ClientesComponent } from './paginas/clientes/clientes.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { HomeComponent } from './paginas/home/home.component';
     PaginacionComponent,
     VehiculoDetalleComponent,
     HomeComponent,
+    ClientesComponent,
     
   ],
   imports: [

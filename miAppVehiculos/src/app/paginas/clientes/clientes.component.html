@@ -1,0 +1,38 @@
+<div class="modal-content">
+    <div class="modal-header" >
+      <h5 class="modal-title text-light" id="exampleModalLabel">Registro del Cliente</h5>
+    </div>
+    <div class="modal-body">
+        <div class="container-fluid">
+            <form>
+                <div class="mb-3">
+                  <label for="formControlNombre" class="form-label text-light">Nombre</label>
+                  <input type="text" class="form-control" id="formControlNombre" formControlName="nombre">
+                </div>
+                <div class="mb-3">
+                  <label for="formControlPassword" class="form-label text-light">Password</label>
+                  <input type="password" class="form-control" id="formControlPassword" formControlName="nombre">
+                </div>
+                  <div class="mb-3">
+                    <input type="checkbox" (change)="toggleInputs($event)">
+                    <label class="form-check-label text-light" for="check1">Desea recibir informacion?</label>
+                  </div>
+                  <div  *ngIf="inputsActive" class="py-2">
+                    
+                      <label class="form-label text-light" for="form-controlCorreo">Direccion de correo</label>
+                      <input type="email" class="form-control" id="formControlCorreo" [(ngModel)]="input1Value" formControlName="email">
+                      
+                      <label class="form-label text-light" for="form-controlTelefono">Teléfono</label>
+                      <input type="text" class="form-control" id="formControlTelefono" [(ngModel)]="input2Value" formControlName="telefono">
+                    
+                  </div>
+                <button type="submit" class="btn btn-primary" (click)="registrar()">Registrar</button>
+            </form>
+        </div>
+    </div>
+</div>
+<footer>
+  <div class="col-3 py-3">
+    <a class="btn btn-outline-light" [routerLink]="['']">Inicio</a>
+  </div>
+</footer>
